@@ -5,6 +5,9 @@ const passport = require('passport');
 const pool = require('./db/pool');
 const clubhouseRouter = require('./routes/clubhouseRouter');
 
+// Need to require the entire Passport config module so app.js knows about it
+require('./config/passport');
+
 // Create the Express application
 const app = express();
 app.set('view engine', 'ejs');
