@@ -7,6 +7,8 @@ const clubhouseRouter = require('./routes/clubhouseRouter');
 
 // Create the Express application
 const app = express();
+app.set('view engine', 'ejs');
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 

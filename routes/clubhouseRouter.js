@@ -2,6 +2,8 @@ const { Router } = require('express');
 const clubhouseController = require('../controllers/clubhouseController');
 const clubhouseRouter = Router();
 
+clubhouseRouter.get('/', clubhouseController.getIndex);
+
 clubhouseRouter.get('/register', clubhouseController.getRegister);
 clubhouseRouter.post('/register', clubhouseController.postRegister);
 
