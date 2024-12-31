@@ -4,6 +4,7 @@ const pgSession = require('connect-pg-simple')(session);
 const passport = require('passport');
 const pool = require('./db/pool');
 const clubhouseRouter = require('./routes/clubhouseRouter');
+const path = require('node:path');
 
 // Need to require the entire Passport config module so app.js knows about it
 require('./config/passport');
@@ -11,6 +12,9 @@ require('./config/passport');
 // Create the Express application
 const app = express();
 app.set('view engine', 'ejs');
+
+const assetsPath = path.join(__dirname, 'public');
+app.use(express.static(assetsPath));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));

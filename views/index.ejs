@@ -2,11 +2,9 @@
 <html>
   <head>
     <title><%=title%></title>
+    <link rel="stylesheet" href="/styles.css" />
   </head>
   <body>
-    <h1>Welcome</h1>
-    <p>Login or Register</p>
-    <a href="/register">Register</a>
-    <a href="/login">Log in</a>
+    <div class="main-cont"><%-include("partials/" + partial + ".ejs")%></div>
   </body>
 </html>

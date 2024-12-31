@@ -1,0 +1,110 @@
+:root {
+  --orange: #ffcc99;
+  --blue: #003162;
+  --lightgreen: rgb(238, 252, 216);
+}
+
+body {
+  background-image: url('pentagons.png');
+  color: var(--blue);
+  padding: 0;
+  margin: 0;
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+  justify-content: center;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.main-cont {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  justify-content: center;
+}
+
+.index-cont {
+  display: flex;
+  flex-direction: column;
+  padding: 2em;
+  width: fit-content;
+  align-items: center;
+  border-radius: 15px;
+  color: var(--blue);
+  background-color: var(--orange);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.193);
+}
+
+.index-cont .button-cont {
+  display: flex;
+  flex-direction: row;
+  width: fit-content;
+  gap: 30px;
+}
+
+.index-cont .button,
+.login-cont .button {
+  display: flex;
+  border: 1px black solid;
+  justify-content: center;
+  min-width: 100px;
+  background-color: white;
+  border: solid 1px var(--blue);
+  border-radius: 3px;
+}
+
+.index-cont .button:hover,
+.login-cont .button:hover {
+  background-color: var(--lightgreen); /* Lighten the background on hover */
+  cursor: pointer; /* Change the cursor to indicate interaction */
+  transform: scale(1.05); /* Slightly enlarge the button on hover */
+}
+
+.index-cont a,
+.login-cont .button {
+  padding: 0.5em 1em 0.5em 1em;
+}
+
+/* ------ LOGIN ------- */
+
+.login-cont {
+  /* Center the login form horizontally */
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Make the container fill the viewport height */
+}
+
+.login-cont form {
+  background-color: var(--orange);
+  padding: 20px; /* Add some padding for spacing */
+  border: 1px solid var(--blue); /* Add a border around the form */
+  border-radius: 5px; /* Make the form corners rounded */
+}
+
+.login-cont h2 {
+  padding: 0;
+  margin-bottom: 15px;
+  margin-top: 0;
+}
+
+.login-cont label {
+  display: block; /* Make labels display as block elements for better spacing */
+  margin-bottom: 10px; /* Add some space below each label */
+}
+
+.login-cont input[type='text'],
+.login-cont input[type='password'],
+.login-cont input[type='email'] {
+  width: 200px; /* Set a width for the input fields */
+  padding: 5px; /* Add some padding to the input fields */
+  margin-bottom: 15px; /* Add space below each input field */
+  border: 1px solid var(--blue); /* Add a border to the input fields */
+  border-radius: 3px; /* Make the input field corners rounded */
+  background-color: white;
+}

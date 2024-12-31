@@ -10,7 +10,7 @@ exports.getIndex = (req, res, next) => {
     res.redirect('/messageFeed');
   }
 
-  res.render('index', { title: 'Index' });
+  res.render('index', { title: 'Home', partial: 'loggedOut' });
 };
 
 exports.getRegister = async (req, res, next) => {
@@ -18,8 +18,9 @@ exports.getRegister = async (req, res, next) => {
     res.redirect('/messageFeed');
   }
 
-  res.render('register', {
+  res.render('index', {
     title: 'Register',
+    partial: 'register',
   });
 };
 
@@ -44,7 +45,7 @@ exports.getLogin = async (req, res, next) => {
     res.redirect('/messageFeed');
   }
 
-  res.render('login', { title: 'Log In' });
+  res.render('index', { title: 'Log In', partial: 'login' });
 };
 
 exports.postLogin = async (req, res, next) => {
