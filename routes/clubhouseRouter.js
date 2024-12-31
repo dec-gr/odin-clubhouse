@@ -19,4 +19,7 @@ clubhouseRouter.get('/home', clubhouseController.getHome);
 
 clubhouseRouter.get('/messageFeed', isAuth, clubhouseController.getMessageFeed);
 
+clubhouseRouter.get('/newMessage', isAuth, clubhouseController.getNewMessage);
+clubhouseRouter.post('/newMessage', isAuth, clubhouseController.postNewMessage);
+
 module.exports = clubhouseRouter;

@@ -1,5 +1,7 @@
 const pool = require('./pool');
 
+/* ----- USER QUERIES ---- */
+
 function addUser({ first_name, last_name, email, hashedPassword }) {
   pool.query(
     `
@@ -25,8 +27,18 @@ async function getUserById(id) {
   return user;
 }
 
+/* ----- MESSAGE QUERIES ---- */
+
+function addMessage({ user_id, title, content }) {
+  pool.query(
+    'INSERT INTO messages (user_id, title, content, time_stamp) VALUES ($1, $2, $3, NOW())',
+    [user_id, title, content]
+  );
+}
+
 module.exports = {
   addUser,
   getUserByEmail,
   getUserById,
+  addMessage,
 };

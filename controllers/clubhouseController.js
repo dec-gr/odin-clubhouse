@@ -13,7 +13,6 @@ exports.getRegister = async (req, res, next) => {
 };
 
 exports.postRegister = async (req, res, next) => {
-  console.log('HELLO');
   const { first_name, last_name, email, password } = req.body;
   try {
     bcrypt.hash(password, 10, async (err, hashedPassword) => {
@@ -47,8 +46,7 @@ exports.getHome = (req, res, next) => {
 };
 
 exports.getMessageFeed = async (req, res, next) => {
-  const user = await req.user;
-  res.render('messageFeed', { title: 'Message Feed', user: user });
+  res.render('messageFeed', { title: 'Message Feed' });
 };
 
 exports.getLogout = (req, res, next) => {
@@ -58,4 +56,23 @@ exports.getLogout = (req, res, next) => {
     }
     res.redirect('/');
   });
+};
+
+/* ----- MESSAGE FUNCTIONS ---- */
+
+exports.getNewMessage = (req, res, next) => {
+  res.render('newMessage', {
+    title: 'New Message',
+  });
+};
+
+exports.postNewMessage = async (req, res, next) => {
+  const { title, content } = req.body;
+  const user_id = req.user.user_id;
+  try {
+    db.addMessage({ user_id, title, content });
+    res.redirect('messageFeed');
+  } catch (err) {
+    return next(err);
+  }
 };
