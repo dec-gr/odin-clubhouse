@@ -15,7 +15,7 @@ clubhouseRouter.post('/register', clubhouseController.postRegister);
 clubhouseRouter.get('/login', clubhouseController.getLogin);
 clubhouseRouter.post('/login', clubhouseController.postLogin);
 
-clubhouseRouter.get('/logout', clubhouseController.getLogout);
+clubhouseRouter.get('/logout', isAuth, clubhouseController.getLogout);
 
 clubhouseRouter.get('/home', clubhouseController.getHome);
 
@@ -34,10 +34,10 @@ clubhouseRouter.get(
   clubhouseController.getDeleteMessage
 );
 
-clubhouseRouter.get('/addMember', clubhouseController.getAddMember);
-clubhouseRouter.post('/addMember', clubhouseController.postAddMember);
+clubhouseRouter.get('/addMember', isAuth, clubhouseController.getAddMember);
+clubhouseRouter.post('/addMember', isAuth, clubhouseController.postAddMember);
 
-clubhouseRouter.get('/addAdmin', clubhouseController.getAddAdmin);
-clubhouseRouter.post('/addAdmin', clubhouseController.postAddAdmin);
+clubhouseRouter.get('/addAdmin', isAuth, clubhouseController.getAddAdmin);
+clubhouseRouter.post('/addAdmin', isAuth, clubhouseController.postAddAdmin);
 
 module.exports = clubhouseRouter;
