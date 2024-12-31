@@ -2,10 +2,36 @@
 <html>
   <head>
     <title><%=title%></title>
+    <% console.log(messages) %>
   </head>
 
   <body>
+    <%- include('partials/navbar')%>
+
     <h1>Welcome to the message feed</h1>
     <p><%=currentUser.first_name%> <%=currentUser.last_name%></p>
+    <% if (messages) { %>
+    <ul>
+      <% messages.forEach((message) => { %>
+      <li>
+        <h2><%=message.title%></h2>
+
+        <% if (currentUser.is_member) { %>
+        <h3><%=message.first_name%> <%=message.last_name%></h3>
+        <h3><%=message.time_stamp%></h3>
+        <% } else { %>
+
+        <h3>Anonymous</h3>
+
+        <% } %>
+
+        <p><%=message.content%></p>
+        <% if (currentUser.is_admin) {%>
+        <a href="messages/<%=message.message_id%>/delete">Delete</a>
+        <%}%>
+      </li>
+      <% }) %>
+    </ul>
+    <% } %>
   </body>
 </html>

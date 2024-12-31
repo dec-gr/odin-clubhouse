@@ -10,7 +10,8 @@ first_name TEXT,
 last_name TEXT,
 email TEXT,
 password TEXT,
-membership_status BOOLEAN
+is_member BOOLEAN,
+is_admin BOOLEAN
 );
 
 CREATE TABLE IF NOT EXISTS messages (

@@ -1,6 +1,8 @@
 const { Router } = require('express');
 const passport = require('passport');
 const isAuth = require('./authMiddleware').isAuth;
+const isMember = require('./authMiddleware').isMember;
+const isAdmin = require('./authMiddleware').isAdmin;
 
 const clubhouseController = require('../controllers/clubhouseController');
 const clubhouseRouter = Router();
@@ -19,7 +21,23 @@ clubhouseRouter.get('/home', clubhouseController.getHome);
 
 clubhouseRouter.get('/messageFeed', isAuth, clubhouseController.getMessageFeed);
 
-clubhouseRouter.get('/newMessage', isAuth, clubhouseController.getNewMessage);
-clubhouseRouter.post('/newMessage', isAuth, clubhouseController.postNewMessage);
+clubhouseRouter.get('/newMessage', isMember, clubhouseController.getNewMessage);
+clubhouseRouter.post(
+  '/newMessage',
+  isMember,
+  clubhouseController.postNewMessage
+);
+
+clubhouseRouter.get(
+  '/messages/:message_id/delete',
+  isAdmin,
+  clubhouseController.getDeleteMessage
+);
+
+clubhouseRouter.get('/addMember', clubhouseController.getAddMember);
+clubhouseRouter.post('/addMember', clubhouseController.postAddMember);
+
+clubhouseRouter.get('/addAdmin', clubhouseController.getAddAdmin);
+clubhouseRouter.post('/addAdmin', clubhouseController.postAddAdmin);
 
 module.exports = clubhouseRouter;

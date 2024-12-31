@@ -1,6 +1,7 @@
 const passport = require('passport');
 const db = require('../db/queries');
 const bcrypt = require('bcryptjs');
+require('dotenv').config();
 
 exports.getIndex = (req, res, next) => {
   res.render('index', { title: 'Index' });
@@ -45,10 +46,6 @@ exports.getHome = (req, res, next) => {
   res.send('This is the home page');
 };
 
-exports.getMessageFeed = async (req, res, next) => {
-  res.render('messageFeed', { title: 'Message Feed' });
-};
-
 exports.getLogout = (req, res, next) => {
   req.logout((err) => {
     if (err) {
@@ -56,6 +53,36 @@ exports.getLogout = (req, res, next) => {
     }
     res.redirect('/');
   });
+};
+
+/* -----  MEMBERSHIP FUNCTIONS ------ */
+
+exports.getAddMember = (req, res, next) => {
+  res.render('addMember', { title: '' });
+};
+
+exports.postAddMember = (req, res, next) => {
+  const { secret_code } = req.body;
+
+  if (secret_code === process.env.MEMBERSHIP_CODE) {
+    db.addMember(req.user.user_id);
+  }
+
+  res.render('index', { title: 'Home' });
+};
+
+exports.getAddAdmin = (req, res, next) => {
+  res.render('addAdmin', { title: '' });
+};
+
+exports.postAddAdmin = (req, res, next) => {
+  const { secret_code } = req.body;
+
+  if (secret_code === process.env.ADMIN_CODE) {
+    db.addAdmin(req.user.user_id);
+  }
+
+  res.render('index', { title: 'Home' });
 };
 
 /* ----- MESSAGE FUNCTIONS ---- */
@@ -75,4 +102,19 @@ exports.postNewMessage = async (req, res, next) => {
   } catch (err) {
     return next(err);
   }
+};
+
+exports.getDeleteMessage = async (req, res, next) => {
+  const message_id = req.params.message_id;
+  await db.deleteMessage(message_id);
+  res.redirect('/messageFeed');
+};
+
+exports.getMessageFeed = async (req, res, next) => {
+  const queryFunction = req.user.is_member
+    ? db.getAllMessagesWithNamesMember
+    : db.getAllMessagesWithNamesNonMember;
+  const messages = await queryFunction();
+
+  res.render('messageFeed', { title: 'Message Feed', messages: messages });
 };

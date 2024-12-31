@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%=title%></title>
+  </head>
+
+  <body>
+    <%- include('partials/navbar')%>
+
+    <h1><%=title%></h1>
+    <form method="POST" action="/addMember">
+      <label for="secret_code">Enter the secret code:</label>
+      <input type="text" id="secret_code" name="secret_code" />
+      <button type="submit">Submit</button>
+    </form>
+  </body>
+</html>

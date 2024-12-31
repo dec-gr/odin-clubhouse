@@ -27,6 +27,32 @@ async function getUserById(id) {
   return user;
 }
 
+function addMember(user_id) {
+  pool.query(
+    `
+    UPDATE users
+    SET is_member = 'TRUE'
+    WHERE user_id = $1
+    
+    
+    `,
+    [user_id]
+  );
+}
+
+function addAdmin(user_id) {
+  pool.query(
+    `
+    UPDATE users
+    SET is_admin = 'TRUE'
+    WHERE user_id = $1
+    
+    
+    `,
+    [user_id]
+  );
+}
+
 /* ----- MESSAGE QUERIES ---- */
 
 function addMessage({ user_id, title, content }) {
@@ -36,9 +62,40 @@ function addMessage({ user_id, title, content }) {
   );
 }
 
+function deleteMessage(message_id) {
+  pool.query('DELETE FROM messages WHERE message_id = $1', [message_id]);
+}
+
+async function getAllMessagesWithNamesMember() {
+  const { rows } = await pool.query(`
+    SELECT m.message_id, m.title, m.content, m.time_stamp, m.user_id, u.first_name, u.last_name, u.email
+    FROM messages as m
+    INNER JOIN users as u
+    ON m.user_id = u.user_id;
+    `);
+
+  return rows;
+}
+
+async function getAllMessagesWithNamesNonMember() {
+  const { rows } = await pool.query(`
+    SELECT m.message_id, m.title, m.content
+    FROM messages as m
+    INNER JOIN users as u
+    ON m.user_id = u.user_id;
+    `);
+
+  return rows;
+}
+
 module.exports = {
   addUser,
   getUserByEmail,
   getUserById,
+  addMember,
+  addAdmin,
   addMessage,
+  deleteMessage,
+  getAllMessagesWithNamesMember,
+  getAllMessagesWithNamesNonMember,
 };
